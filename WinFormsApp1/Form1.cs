@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.IO;
 using MySql.Data.MySqlClient;
 using Notes;
+using System.Data.Common;
 
 namespace WinFormsApp1
 {
@@ -25,66 +26,57 @@ namespace WinFormsApp1
         }
 
         //кнопки меню=================================================================================
+
+        private void EditorFormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Docladnie_Load(sender, e);
+        }
+
         private void WorkersMenu_Click(object sender, EventArgs e)
         {
             WorkersEditor workersEditor = new();
             workersEditor.Show();
 
-            {
-                workersEditor.FormClosed += new FormClosedEventHandler(workersEditor_FormClosed);
-            }
-
-            void workersEditor_FormClosed(object sender, FormClosedEventArgs e)
-            {
-                this.Docladnie_Load(sender, e);
-            }
-
+            //при закрытии формы обновляется предыдущая форма
+            workersEditor.FormClosed += new FormClosedEventHandler(EditorFormClosed);
         }
 
         private void ObjectsMenu_Click(object sender, EventArgs e)
         {
             ObjectsForm objectsForm = new();
             objectsForm.Show();
+
+            //при закрытии формы обновляется предыдущая форма
+            objectsForm.FormClosed += new FormClosedEventHandler(EditorFormClosed);
         }
         //нажатие кнопки закрытия формы====================================================================
         private void CloseBtn_Click(object sender, EventArgs e)
         {
             Close();
         }
-        //функция заполнения комбобоксов с работниками========================================================
-        private void AddWorkers(string jsonString, ComboBox combobox)
-        {
-            List<Workers> listFromFile = new();
-            listFromFile = JsonConvert.DeserializeObject<List<Workers>>(jsonString);
-            if (listFromFile != null)
-            {
-                combobox.Items.Clear();
-                foreach (var item in listFromFile)
-                {
-                    combobox.Items.Add(item);
 
-                }
-            }
-        }
 
         //загрузка формы=====================================================================================
         private void Docladnie_Load(object sender, EventArgs e)
         {
-            String jsonString = "";
-            try
-            {
-                jsonString = File.ReadAllText(Application.StartupPath + @"\Workers.txt");
-            }
-            catch
-            {
-                jsonString = "";
-            }
-            finally
-            {
-                AddWorkers(jsonString, FirstWorkerCmb);
-                AddWorkers(jsonString, SecondWorkerCmb);
-            }
+            FirstWorkerCmb.Items.Clear();
+            SecondWorkerCmb.Items.Clear();
+            MySqlConnection connection = DBUtils.GetDBConnection();
+            connection.Open();
 
+            string sql = "Select * from worker";
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = sql;
+            using DbDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+                while (reader.Read())
+                {
+                    string name = reader.GetString(1);
+                    string surname = reader.GetString(2);
+                    Workers worker = new(name, surname);
+                    FirstWorkerCmb.Items.Add(worker);
+                    SecondWorkerCmb.Items.Add(worker);
+                }
         }
 
         //отрисовка бордеров панелей==========================================================================
@@ -100,22 +92,21 @@ namespace WinFormsApp1
         //проверка соединения с базой данных
         private void button1_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn = DBUtils.GetDBConnection();
+            MySqlConnection connection = DBUtils.GetDBConnection();
 
             try
             {
-                conn.Open();
+                connection.Open();
                 MessageBox.Show("Connection successful!");
             }
             catch (Exception err)
             {
-                MessageBox.Show("Error: "+ err.Message,"Attention",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + err.Message, "Attention", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                conn.Close();
-                conn.Dispose();
-                conn = null;
+                connection.Close();
+                connection.Dispose();
             }
         }
     }

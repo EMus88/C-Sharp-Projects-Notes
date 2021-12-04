@@ -8,7 +8,9 @@ namespace Notes
 {
     class Branches
     {
+        
         public string name { get; set; }
+        public int id { get; set; }
         public List<WorkPlaces> listPlaces=new();
 
         public Branches(string name)

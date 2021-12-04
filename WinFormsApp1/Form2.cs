@@ -46,7 +46,7 @@ namespace WinFormsApp1
                 {
                     string name = reader.GetString(1);
                     string surname = reader.GetString(2);
-                    Workers worker = new Workers(name, surname);
+                    Workers worker = new (name, surname);
                     listBox1.Items.Add(worker);
                     workersList.Add(worker);
                     listBox1.Sorted = true;
@@ -128,8 +128,35 @@ namespace WinFormsApp1
         {
             if (listBox1.SelectedIndex > -1)
             {
+                
+                //удаление из базы данных
+                MySqlConnection connection = DBUtils.GetDBConnection();
+
+                try
+                {
+                    connection.Open();
+                    //удаление всех объектов филиала
+                    string sql = "Delete from worker where name=@name and surname=@surname";
+                    MySqlCommand cmd = connection.CreateCommand();
+                    cmd.Parameters.AddWithValue("@name", workersList[listBox1.SelectedIndex].name);
+                    cmd.Parameters.AddWithValue("@surname", workersList[listBox1.SelectedIndex].surname);
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+                    
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error: " + err.Message, "Attention", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
+                }
+
                 workersList.RemoveAt(listBox1.SelectedIndex);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+
             }
         }
 

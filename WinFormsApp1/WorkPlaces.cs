@@ -14,13 +14,10 @@ namespace Notes
         public string DoubleleMoneyLimit { get; set; }
         public string travelMoney { get; set; }
 
-        public WorkPlaces(string name, string livingPlace, string singleMoneyLimit, string doubleleMoneyLimit, string travelMoney)
+        public WorkPlaces(string name)
         {
             this.name = name; 
-            this.livingPlace = livingPlace;
-            this.singleMoneyLimit = singleMoneyLimit;
-            this.DoubleleMoneyLimit = doubleleMoneyLimit;
-            this.travelMoney = travelMoney;
+            
         }
         public override string ToString()
         {

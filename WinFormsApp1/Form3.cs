@@ -18,7 +18,7 @@ namespace WinFormsApp1
     public partial class ObjectsForm : Form
     {
         private List<Branches> branchesList = new();
-        
+
 
         public ObjectsForm()
         {
@@ -30,6 +30,7 @@ namespace WinFormsApp1
             Close();
         }
 
+        //кнопка добавления филиала
         private void addFilBtn_Click(object sender, EventArgs e)
         {
             if (branchTB.Text != "")
@@ -64,25 +65,47 @@ namespace WinFormsApp1
                     connection.Dispose();
                     connection = null;
                 }
-
-
-
             }
 
         }
-
+        //кнопка добавить объект
         private void AddObjBtn_Click(object sender, EventArgs e)
         {
             if (branchesLB.SelectedIndex > -1)
             {
                 if (workPlaceTB.Text != "")
                 {
-                    WorkPlaces workPlace = new(workPlaceTB.Text, livingPlaceTB.Text, singleLimitTB.Text, doubleLimitTB.Text, travelMoneyTB.Text);
+                    WorkPlaces workPlace = new(workPlaceTB.Text);
                     branchesList[branchesLB.SelectedIndex].listPlaces.Add(workPlace);
                     branchesList[branchesLB.SelectedIndex].listPlaces.Sort((left, right) => left.name.CompareTo(right.name));
                     workPlacesLB.Items.Add(workPlace);
                     workPlacesLB.Sorted = true;
+
+                    //добавление в базу данных
+                    MySqlConnection connection = DBUtils.GetDBConnection();
+
+                    try
+                    {
+                        connection.Open();
+                        string sql = "Insert into object (name,fil_id) values (@name,@fil_id)";
+                        MySqlCommand cmd = connection.CreateCommand();
+                        cmd.Parameters.AddWithValue("@name", workPlace.name);
+                        cmd.Parameters.AddWithValue("@fil_id", branchesList[branchesLB.SelectedIndex].id);
+                        cmd.CommandText = sql;
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show("Error: " + err.Message, "Attention", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                        connection.Dispose();
+                        connection = null;
+                    }
                 }
+
                 else
                 {
                     MessageBox.Show("Не заполнено название объекта");
@@ -96,9 +119,22 @@ namespace WinFormsApp1
             {
                 workPlacesLB.Items.Clear();
 
-                foreach (var item in branchesList[branchesLB.SelectedIndex].listPlaces)
+                MySqlConnection connection = DBUtils.GetDBConnection();
+                connection.Open();
+
+                string sql = "Select * from object where fil_id=@fil_id";
+                MySqlCommand cmd = connection.CreateCommand();
+                cmd.Parameters.AddWithValue("@fil_id", branchesList[branchesLB.SelectedIndex].id);
+                cmd.CommandText = sql;
+                using DbDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    workPlacesLB.Items.Add(item);
+                    while (reader.Read())
+                    {
+                        string name = reader.GetString(1);
+                        WorkPlaces workPlace = new (name);
+                        workPlacesLB.Items.Add(workPlace);
+                    }
                 }
             }
 
@@ -107,10 +143,42 @@ namespace WinFormsApp1
         //кнопка удалить филиал
         private void DeleteBranchBtn_Click(object sender, EventArgs e)
         {
+            int id = branchesList[branchesLB.SelectedIndex].id;
             if (branchesLB.SelectedIndex > -1)
             {
                 branchesList.RemoveAt(branchesLB.SelectedIndex);
                 branchesLB.Items.RemoveAt(branchesLB.SelectedIndex);
+
+                //удаление из базы данных
+                MySqlConnection connection = DBUtils.GetDBConnection();
+
+                try
+                {
+                    connection.Open();
+                    //удаление всех объектов филиала
+                    string sql = "Delete from object where fil_id=@id";
+                    MySqlCommand cmd = connection.CreateCommand();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+                    workPlacesLB.Items.Clear();
+                    //удаление выделенного филиала
+                    sql = "Delete from branch where id=@id";
+                    cmd = connection.CreateCommand();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error: " + err.Message, "Attention", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
+                }
             }
         }
 
@@ -125,17 +193,19 @@ namespace WinFormsApp1
             cmd.CommandText = sql;
             using DbDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
+            {
                 while (reader.Read())
                 {
+                    int id = reader.GetInt32(0);
                     string name = reader.GetString(1);
-                    string surname = reader.GetString(2);
-                    Branches branch = new Branches(name);
+                    Branches branch = new (name);
+                    branch.id = id;
                     branchesLB.Items.Add(branch);
                     branchesList.Add(branch);
                     branchesLB.Sorted = true;
                     branchesList.Sort((left, right) => left.name.CompareTo(right.name));
                 }
-
+            }
         }
     }
 }

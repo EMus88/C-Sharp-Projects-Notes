@@ -9,7 +9,6 @@ namespace WinFormsApp1
     class Workers
     {
         public string name { get; set; }
-
         public string surname { get; set; }
         public string position { get; set; }
         public string phoneNumber { get; set; }
@@ -24,7 +23,7 @@ namespace WinFormsApp1
 
         public override string ToString()
         {
-            return $"{name} {surname}";
+            return $"{surname} {name}";
         }
                
     }

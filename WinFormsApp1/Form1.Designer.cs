@@ -409,11 +409,11 @@ namespace WinFormsApp1
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(66, 11);
+            this.label4.Location = new System.Drawing.Point(90, 11);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 14);
+            this.label4.Size = new System.Drawing.Size(51, 14);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Место работы";
+            this.label4.Text = "Филиал";
             // 
             // panel1
             // 
