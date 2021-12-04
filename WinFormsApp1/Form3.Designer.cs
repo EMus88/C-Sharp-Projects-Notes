@@ -260,6 +260,7 @@ namespace WinFormsApp1
             this.Name = "ObjectsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактор объектов";
+            this.Load += new System.EventHandler(this.ObjectsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
