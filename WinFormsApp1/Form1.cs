@@ -222,7 +222,11 @@ namespace WinFormsApp1
         {
             this.dataGridViewReport.Rows.Clear();
             MySqlConnection connection = DBUtils.GetDBConnection();
-
+            String startDate;
+            int daysCountReport;
+            String branchReport;
+            String objectReport;
+            String workerReport;
             try
             {
                 connection.Open();
@@ -241,11 +245,11 @@ namespace WinFormsApp1
                 {
                     while (reader.Read())
                     {
-                        DateTime startDate = reader.GetDateTime(1);
-                        int daysCountReport = reader.GetInt32(2);
-                        String branchReport = reader.GetString(7);
-                        String objectReport = reader.GetString(6);
-                        String workerReport = reader.GetString(9) + " " + reader.GetString(8);
+                        startDate = reader.GetDateTime(1).ToString("dd.MM.yyyy");
+                        daysCountReport = reader.GetInt32(2);
+                        branchReport = reader.GetString(7);
+                        objectReport = reader.GetString(6);
+                        workerReport = reader.GetString(9) + " " + reader.GetString(8);
 
                         this.dataGridViewReport.Rows.Add(startDate, daysCountReport, branchReport, objectReport, workerReport);
 
