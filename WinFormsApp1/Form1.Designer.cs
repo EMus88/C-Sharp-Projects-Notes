@@ -63,7 +63,7 @@ namespace WinFormsApp1
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ObjCmb = new System.Windows.Forms.ComboBox();
             this.BranchCmb = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -328,6 +328,7 @@ namespace WinFormsApp1
             this.Obj.Size = new System.Drawing.Size(1292, 545);
             this.Obj.TabIndex = 0;
             this.Obj.Text = "Докладная на вахту/командировку";
+
             // 
             // connectionDBbtn
             // 
@@ -365,7 +366,7 @@ namespace WinFormsApp1
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.ObjCmb);
             this.panel2.Controls.Add(this.BranchCmb);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label4);
@@ -377,13 +378,13 @@ namespace WinFormsApp1
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.VahtaPanel_Paint);
             // 
-            // comboBox1
+            // ObjCmb
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(15, 72);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(220, 24);
-            this.comboBox1.TabIndex = 13;
+            this.ObjCmb.FormattingEnabled = true;
+            this.ObjCmb.Location = new System.Drawing.Point(15, 72);
+            this.ObjCmb.Name = "ObjCmb";
+            this.ObjCmb.Size = new System.Drawing.Size(220, 24);
+            this.ObjCmb.TabIndex = 13;
             // 
             // BranchCmb
             // 
@@ -616,7 +617,7 @@ namespace WinFormsApp1
         private System.Windows.Forms.ComboBox BranchCmb;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ObjCmb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox2;

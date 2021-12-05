@@ -61,23 +61,35 @@ namespace WinFormsApp1
         {
             FirstWorkerCmb.Items.Clear();
             SecondWorkerCmb.Items.Clear();
+            BranchCmb.Items.Clear();
+            ObjCmb.Items.Clear();
+
             MySqlConnection connection = DBUtils.GetDBConnection();
             connection.Open();
 
-            string sql = "Select * from worker";
-            MySqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = sql;
-            using DbDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-                while (reader.Read())
+
+            using (MySqlCommand cmd = new ("Select * from worker; Select * from branch;", connection))
+            using (var sqlReader = cmd.ExecuteReader())
+            {
+                while (sqlReader.Read())
                 {
-                    string name = reader.GetString(1);
-                    string surname = reader.GetString(2);
+                    string name = sqlReader.GetString(1);
+                    string surname = sqlReader.GetString(2);
                     Workers worker = new(name, surname);
                     FirstWorkerCmb.Items.Add(worker);
                     SecondWorkerCmb.Items.Add(worker);
                 }
-        }
+                if (sqlReader.NextResult())
+                {
+                    while (sqlReader.Read())
+                    {
+                        string name = sqlReader.GetString(1);
+                        Branches branch = new(name);
+                        BranchCmb.Items.Add(branch);
+                    }
+                }
+            }
+                    }
 
         //отрисовка бордеров панелей==========================================================================
         private void WorkersPanel_Paint(object sender, PaintEventArgs e)
@@ -109,5 +121,7 @@ namespace WinFormsApp1
                 connection.Dispose();
             }
         }
+
+
     }
 }
