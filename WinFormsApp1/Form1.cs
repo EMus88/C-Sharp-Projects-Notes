@@ -195,6 +195,11 @@ namespace WinFormsApp1
 
                     cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
+
+                    this.dataGridView.Rows.Add(dateTimePicker.Value.ToString("dd.MM.yyyy"), DaysCountCmb.Text, branchesList[BranchCmb.SelectedIndex],
+                 branchesList[BranchCmb.SelectedIndex].listPlaces[ObjCmb.SelectedIndex], workersList[FirstWorkerCmb.SelectedIndex]);
+                    this.dataGridView.Sort(StartDate, System.ComponentModel.ListSortDirection.Descending);
+
                 }
                 catch (Exception err)
                 {
@@ -210,6 +215,53 @@ namespace WinFormsApp1
             {
                 MessageBox.Show("Не все поля заполнены");
             }
+        }
+
+        //кнопка формирования отчета
+        private void CrtReportBtn_Click(object sender, EventArgs e)
+        {
+            this.dataGridViewReport.Rows.Clear();
+            MySqlConnection connection = DBUtils.GetDBConnection();
+
+            try
+            {
+                connection.Open();
+                string sql = "select note.*,object.name,branch.name,worker.name,worker.surname from note " +
+                    "left join object on object.id=note.obj_id " +
+                    "left join branch on branch.id=note.fil_id " +
+                    "left join worker on worker.id=note.worker_id " +
+                    "where note.start_date between @start and @stop";
+                MySqlCommand cmd = connection.CreateCommand();
+                cmd.Parameters.AddWithValue("@start", dateTimePickerReportStart.Value.Date);
+                cmd.Parameters.AddWithValue("@stop", dateTimePickerReportStop.Value.Date);
+
+                cmd.CommandText = sql;
+                using DbDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        DateTime startDate = reader.GetDateTime(1);
+                        int daysCountReport = reader.GetInt32(2);
+                        String branchReport = reader.GetString(7);
+                        String objectReport = reader.GetString(6);
+                        String workerReport = reader.GetString(9) + " " + reader.GetString(8);
+
+                        this.dataGridViewReport.Rows.Add(startDate, daysCountReport, branchReport, objectReport, workerReport);
+
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message, "Attention", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.Close();
+                connection.Dispose();
+            }
+
         }
     }
 }
