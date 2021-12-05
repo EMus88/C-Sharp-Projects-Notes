@@ -131,9 +131,9 @@ namespace WinFormsApp1
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(518, 64);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(176, 16);
+            this.label6.Size = new System.Drawing.Size(183, 16);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Лимит поживания на одного";
+            this.label6.Text = "Лимит проживания на одного";
             // 
             // singleLimitTB
             // 
@@ -149,9 +149,9 @@ namespace WinFormsApp1
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(518, 109);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(170, 16);
+            this.label7.Size = new System.Drawing.Size(177, 16);
             this.label7.TabIndex = 4;
-            this.label7.Text = "Лимит поживания на двоих";
+            this.label7.Text = "Лимит проживания на двоих";
             // 
             // doubleLimitTB
             // 

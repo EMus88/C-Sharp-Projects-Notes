@@ -8,6 +8,7 @@ namespace Notes
 {
     class WorkPlaces
     {
+        public int id { get; set; }
         public string name { get; set; }
         public string livingPlace { get; set; }
         public string singleMoneyLimit { get; set; }

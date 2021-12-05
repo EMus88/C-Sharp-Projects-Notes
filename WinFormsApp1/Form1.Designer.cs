@@ -60,7 +60,7 @@ namespace WinFormsApp1
             this.Obj = new System.Windows.Forms.TabPage();
             this.connectionDBbtn = new System.Windows.Forms.Button();
             this.CreateBtn = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.DaysCountCmb = new System.Windows.Forms.ComboBox();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ObjCmb = new System.Windows.Forms.ComboBox();
@@ -312,7 +312,7 @@ namespace WinFormsApp1
             this.Obj.BackColor = System.Drawing.Color.LightSteelBlue;
             this.Obj.Controls.Add(this.connectionDBbtn);
             this.Obj.Controls.Add(this.CreateBtn);
-            this.Obj.Controls.Add(this.comboBox2);
+            this.Obj.Controls.Add(this.DaysCountCmb);
             this.Obj.Controls.Add(this.dateTimePicker);
             this.Obj.Controls.Add(this.panel2);
             this.Obj.Controls.Add(this.panel1);
@@ -328,7 +328,6 @@ namespace WinFormsApp1
             this.Obj.Size = new System.Drawing.Size(1292, 545);
             this.Obj.TabIndex = 0;
             this.Obj.Text = "Докладная на вахту/командировку";
-
             // 
             // connectionDBbtn
             // 
@@ -348,14 +347,15 @@ namespace WinFormsApp1
             this.CreateBtn.TabIndex = 13;
             this.CreateBtn.Text = "Сформировать";
             this.CreateBtn.UseVisualStyleBackColor = true;
+            this.CreateBtn.Click += new System.EventHandler(this.CreateBtn_Click);
             // 
-            // comboBox2
+            // DaysCountCmb
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(143, 117);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(220, 21);
-            this.comboBox2.TabIndex = 12;
+            this.DaysCountCmb.FormattingEnabled = true;
+            this.DaysCountCmb.Location = new System.Drawing.Point(143, 117);
+            this.DaysCountCmb.Name = "DaysCountCmb";
+            this.DaysCountCmb.Size = new System.Drawing.Size(220, 21);
+            this.DaysCountCmb.TabIndex = 12;
             // 
             // dateTimePicker
             // 
@@ -393,6 +393,7 @@ namespace WinFormsApp1
             this.BranchCmb.Name = "BranchCmb";
             this.BranchCmb.Size = new System.Drawing.Size(220, 24);
             this.BranchCmb.TabIndex = 12;
+            this.BranchCmb.SelectedIndexChanged += new System.EventHandler(this.BranchCmb_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -620,7 +621,7 @@ namespace WinFormsApp1
         private System.Windows.Forms.ComboBox ObjCmb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox DaysCountCmb;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button CreateBtn;
         private System.Windows.Forms.Button connectionDBbtn;
