@@ -57,7 +57,10 @@ namespace WinFormsApp1
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Repots = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.SaveBtnReport = new System.Windows.Forms.Button();
+            this.BranchChbx = new System.Windows.Forms.CheckBox();
+            this.BranchCmbxReport = new System.Windows.Forms.ComboBox();
+            this.WorkerCmbxReport = new System.Windows.Forms.ComboBox();
             this.WorkerChkbx = new System.Windows.Forms.CheckBox();
             this.CrtReportBtn = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -155,7 +158,7 @@ namespace WinFormsApp1
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.newToolStripMenuItem.Text = "&Новый";
             // 
             // openToolStripMenuItem
@@ -164,13 +167,13 @@ namespace WinFormsApp1
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.openToolStripMenuItem.Text = "&Открыть";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(170, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -178,19 +181,19 @@ namespace WinFormsApp1
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.saveToolStripMenuItem.Text = "&Сохранить";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.saveAsToolStripMenuItem.Text = "Сохранить &как";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // printToolStripMenuItem
             // 
@@ -198,18 +201,18 @@ namespace WinFormsApp1
             this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.printToolStripMenuItem.Text = "&Печать";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.exitToolStripMenuItem.Text = "Выход";
             // 
             // editToolStripMenuItem
@@ -324,7 +327,10 @@ namespace WinFormsApp1
             // Repots
             // 
             this.Repots.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.Repots.Controls.Add(this.comboBox1);
+            this.Repots.Controls.Add(this.SaveBtnReport);
+            this.Repots.Controls.Add(this.BranchChbx);
+            this.Repots.Controls.Add(this.BranchCmbxReport);
+            this.Repots.Controls.Add(this.WorkerCmbxReport);
             this.Repots.Controls.Add(this.WorkerChkbx);
             this.Repots.Controls.Add(this.CrtReportBtn);
             this.Repots.Controls.Add(this.label9);
@@ -333,19 +339,47 @@ namespace WinFormsApp1
             this.Repots.Controls.Add(this.dateTimePickerReportStop);
             this.Repots.Controls.Add(this.dateTimePickerReportStart);
             this.Repots.Controls.Add(this.dataGridViewReport);
-            this.Repots.Location = new System.Drawing.Point(4, 22);
+            this.Repots.Location = new System.Drawing.Point(4, 24);
             this.Repots.Name = "Repots";
-            this.Repots.Size = new System.Drawing.Size(1292, 545);
+            this.Repots.Size = new System.Drawing.Size(1292, 543);
             this.Repots.TabIndex = 2;
             this.Repots.Text = "Отчет";
             // 
-            // comboBox1
+            // SaveBtnReport
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1092, 146);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(178, 21);
-            this.comboBox1.TabIndex = 7;
+            this.SaveBtnReport.Location = new System.Drawing.Point(1092, 292);
+            this.SaveBtnReport.Name = "SaveBtnReport";
+            this.SaveBtnReport.Size = new System.Drawing.Size(178, 27);
+            this.SaveBtnReport.TabIndex = 10;
+            this.SaveBtnReport.Text = "Сохранить отчет";
+            this.SaveBtnReport.UseVisualStyleBackColor = true;
+            this.SaveBtnReport.Click += new System.EventHandler(this.SaveBtnReport_Click);
+            // 
+            // BranchChbx
+            // 
+            this.BranchChbx.AutoSize = true;
+            this.BranchChbx.Location = new System.Drawing.Point(1091, 179);
+            this.BranchChbx.Name = "BranchChbx";
+            this.BranchChbx.Size = new System.Drawing.Size(127, 19);
+            this.BranchChbx.TabIndex = 9;
+            this.BranchChbx.Text = "Отчет по филиалу";
+            this.BranchChbx.UseVisualStyleBackColor = true;
+            // 
+            // BranchCmbxReport
+            // 
+            this.BranchCmbxReport.FormattingEnabled = true;
+            this.BranchCmbxReport.Location = new System.Drawing.Point(1092, 204);
+            this.BranchCmbxReport.Name = "BranchCmbxReport";
+            this.BranchCmbxReport.Size = new System.Drawing.Size(178, 23);
+            this.BranchCmbxReport.TabIndex = 8;
+            // 
+            // WorkerCmbxReport
+            // 
+            this.WorkerCmbxReport.FormattingEnabled = true;
+            this.WorkerCmbxReport.Location = new System.Drawing.Point(1092, 146);
+            this.WorkerCmbxReport.Name = "WorkerCmbxReport";
+            this.WorkerCmbxReport.Size = new System.Drawing.Size(178, 23);
+            this.WorkerCmbxReport.TabIndex = 7;
             // 
             // WorkerChkbx
             // 
@@ -359,7 +393,7 @@ namespace WinFormsApp1
             // 
             // CrtReportBtn
             // 
-            this.CrtReportBtn.Location = new System.Drawing.Point(1092, 189);
+            this.CrtReportBtn.Location = new System.Drawing.Point(1092, 248);
             this.CrtReportBtn.Name = "CrtReportBtn";
             this.CrtReportBtn.Size = new System.Drawing.Size(178, 26);
             this.CrtReportBtn.TabIndex = 5;
@@ -472,10 +506,10 @@ namespace WinFormsApp1
             this.Obj.Controls.Add(this.label6);
             this.Obj.Controls.Add(this.label1);
             this.Obj.Controls.Add(this.TodayNotesLbl);
-            this.Obj.Location = new System.Drawing.Point(4, 22);
+            this.Obj.Location = new System.Drawing.Point(4, 24);
             this.Obj.Name = "Obj";
             this.Obj.Padding = new System.Windows.Forms.Padding(3);
-            this.Obj.Size = new System.Drawing.Size(1292, 545);
+            this.Obj.Size = new System.Drawing.Size(1292, 543);
             this.Obj.TabIndex = 0;
             this.Obj.Text = "Докладная на вахту/командировку";
             // 
@@ -547,7 +581,7 @@ namespace WinFormsApp1
             this.DaysCountCmb.FormattingEnabled = true;
             this.DaysCountCmb.Location = new System.Drawing.Point(143, 117);
             this.DaysCountCmb.Name = "DaysCountCmb";
-            this.DaysCountCmb.Size = new System.Drawing.Size(220, 21);
+            this.DaysCountCmb.Size = new System.Drawing.Size(220, 23);
             this.DaysCountCmb.TabIndex = 12;
             // 
             // dateTimePicker
@@ -834,7 +868,7 @@ namespace WinFormsApp1
         private System.Windows.Forms.DateTimePicker dateTimePickerReportStart;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox WorkerCmbxReport;
         private System.Windows.Forms.CheckBox WorkerChkbx;
         private System.Windows.Forms.Button CrtReportBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn StartDateReport;
@@ -842,6 +876,9 @@ namespace WinFormsApp1
         private System.Windows.Forms.DataGridViewTextBoxColumn BranchReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn ObjectReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn WorkerReport;
+        private System.Windows.Forms.CheckBox BranchChbx;
+        private System.Windows.Forms.ComboBox BranchCmbxReport;
+        private System.Windows.Forms.Button SaveBtnReport;
     }
 }
 
